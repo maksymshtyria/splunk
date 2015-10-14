@@ -1,0 +1,9 @@
+<%page args="module"/>
+
+<fieldset>
+    % if 'label' in module:
+    <button class="splButton-primary"><span>${_(module['label'])|h}</span></button>
+    % else :
+    <input type="submit" value="" class="searchButton" title="Search"/>
+    % endif
+</fieldset>

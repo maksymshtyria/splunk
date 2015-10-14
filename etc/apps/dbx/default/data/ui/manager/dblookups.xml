@@ -1,0 +1,155 @@
+<endpoint name="dbx/dblookups">
+    <header>Database Lookups</header>
+
+    <breadcrumb>
+        <parent hidecurrent="False">lookups</parent>
+        <name>Database Lookups</name>
+    </breadcrumb>
+
+    <elements>
+
+        <element name="spl-ctrl_header" type="header">
+            <view name="create"/>
+            <view name="edit"/>
+            <key name="title">Add a new database lookup</key>
+            <key name="body">
+                Database lookups allow you to fetch data from an external SQL database but still leveraging the splunk
+                lookup command.
+            </key>
+        </element>
+
+        <element name="spl-crtl_script" type="dbxscript">
+            <view name="create"/>
+            <view name="edit"/>
+            <key name="script">dblookups.js</key>
+        </element>
+
+        <element name="name" type="textfield" label="Lookup Name">
+            <view name="list"/>
+            <view name="create"/>
+            <key name="exampleText">A unique name for the database lookup. A corresponding lookup definition will be
+                automatically added.
+            </key>
+        </element>
+
+        <element name="database" type="select" label="Database">
+            <view name="list"/>
+            <view name="edit"/>
+            <view name="create"/>
+            <!--<options>-->
+                <!--<opt value="_none" label="Select a database"/>-->
+            <!--</options>-->
+            <key name="dynamicOptions" type="dict">
+                <key name="keyName">title</key>
+                <key name="keyValue">title</key>
+                <key name="splunkSource">/dbx/databases</key>
+                <key name="splunkSourceParams" type="dict">
+                    <key name="search">'disabled=false'</key>
+                    <key name="count">-1</key>
+                </key>
+            </key>
+        </element>
+
+        <element name="tablename_options" type="fieldset">
+            <view name="create"/>
+            <view name="edit"/>
+            <view name="list"/>
+            <elements>
+
+                <element name="table" type="textfield" label="Database Table">
+                    <view name="list"/>
+                    <view name="edit"/>
+                    <view name="create"/>
+                    <key name="exampleText">Enter the database table name (double click for suggestions).</key>
+                </element>
+
+                <element name="spl-ctrl_fetch_fields" type="button" label="Fill all columns">
+                    <view name="create"/>
+                    <view name="edit"/>
+                    <key name="exampleText">Fill all columns for the given table</key>
+                </element>
+
+            </elements>
+        </element>
+
+
+        <element name="fields" type="repeatable" label="Lookup Fields">
+            <view name="create"/>
+            <view name="edit"/>
+            <key name="fieldprefix">fields.</key>
+            <key name="deleteable">True</key>
+            <key name="expandable">True</key>
+            <key name="mincount">0</key>
+            <key name="maxcount">500</key>
+            <element name="template" type="textfield">
+                <key name="hideLabel">True</key>
+            </element>
+            <key name="exampleText">Please specify the fields/columns that are supported by this lookup</key>
+        </element>
+
+        <element name="advanced" type="checkbox"
+                 label="Configure advanced Database lookup settings">
+            <view name="create"/>
+            <view name="edit"/>
+            <onChange>
+                <key name="0">NONE</key>
+                <key name="1">ALL</key>
+                <key name="_action">showonly</key>
+                <group_set>
+                    <group name="advanced_options"/>
+                </group_set>
+            </onChange>
+
+            <onChange>
+                <key name="0">ALL</key>
+                <key name="1">NONE</key>
+                <key name="_action">showonly</key>
+                <group_set>
+                    <group name="tablename_options"/>
+                </group_set>
+            </onChange>
+
+            <key name="exampleText">Advanced settings allow you to specify a SQL query that is executed.</key>
+
+        </element>
+
+        <element name="advanced_options" type="fieldset" class="spl-mgr-advanced-options">
+            <key name="legend">Advanced lookup settings</key>
+
+            <view name="create"/>
+            <view name="edit"/>
+            <elements>
+
+                <element name="input_fields" type="repeatable" label="Input Fields">
+                    <view name="create"/>
+                    <view name="edit"/>
+                    <view name="list"/>
+                    <key name="fieldprefix">input_fields.</key>
+                    <key name="deleteable">True</key>
+                    <key name="expandable">True</key>
+                    <key name="mincount">0</key>
+                    <key name="maxcount">10</key>
+                    <element name="template" type="textfield">
+                        <key name="hideLabel">True</key>
+                    </element>
+                </element>
+
+                <element name="query" type="textarea" label="SQL Query">
+                    <view name="create"/>
+                    <view name="edit"/>
+                    <view name="list"/>
+
+                    <key name="exampleText">Define a SQL query and use the $input_field$ as a placeholder for each input
+                        field
+                        &lt;br /&gt;(JDBC PreparedStatments are used - so there is no need to quote strings for example).
+                        &lt;br /&gt;Example:
+                        &lt;pre&gt;
+                            SELECT field1, field2 FROM mytable WHERE where hostname = $host$
+                        &lt;/pre&gt;
+                    </key>
+                </element>
+            </elements>
+        </element>
+    </elements>
+
+</endpoint>

@@ -1,0 +1,32 @@
+<view template="dashboard.html">
+    <label>Splunk DB Connect</label>
+    <module name="AccountBar" layoutPanel="appHeader"/>
+    <module name="AppBar" layoutPanel="navigationHeader"/>
+    <module name="Message" layoutPanel="messaging">
+        <param name="filter">*</param>
+        <param name="clearOnJobDispatch">False</param>
+        <param name="maxSize">1</param>
+    </module>
+    <module name="Message" layoutPanel="messaging">
+        <param name="filter">splunk.search.job</param>
+        <param name="clearOnJobDispatch">True</param>
+        <param name="maxSize">1</param>
+    </module>
+
+    <module name="ServerSideInclude" layoutPanel="panel_row1_col1" group="Welcome to Splunk DB Connect - the generic SQL database connector for Splunk">
+        <param name="src">home.html</param>
+    </module>
+
+    <module name="ServerSideInclude" layoutPanel="panel_row2_col1" group="Manage database connections">
+        <param name="src">home/connect.html</param>
+    </module>
+
+    <module name="ServerSideInclude" layoutPanel="panel_row2_col2" group="Explore database schema">
+        <param name="src">home/explore.html</param>
+    </module>
+
+    <module name="ServerSideInclude" layoutPanel="panel_row2_col3" group="Add database inputs">
+        <param name="src">home/inputs.html</param>
+    </module>
+
+</view>

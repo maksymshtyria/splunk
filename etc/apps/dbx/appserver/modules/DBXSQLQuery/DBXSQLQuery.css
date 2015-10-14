@@ -1,0 +1,10 @@
+.DBXSQLQuery .database-options input, .DBXSQLQuery .database-options select { float: left; }
+.DBXSQLQuery label,.DBXSQLQuery .database-options input { float: left; margin-right: 5px; }
+.DBXSQLQuery .input-limit,.DBXSQLQuery .sql-input { clear: left; }
+.DBXSQLQuery .syntax-switch { }
+.DBXSQLQuery .sql-input textarea { width: 92%; font-family: Courier, monospace; }
+.DBXSQLQuery .submit-input { clear: left; float: right; padding-top: 3px; }
+.CodeMirror { background: #fff; border: 1px solid #ccc; margin-right: 100px; font-size: 12px; min-height: 40px; }
+.CodeMirror .CodeMirror-scroll { height: auto; min-height: 40px; }
+.CodeMirror pre { height: 14px; }
+.CodeMirror .cm-keyword { font-weight: bold; }

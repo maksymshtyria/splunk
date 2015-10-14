@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<endpoint name="dbx/databases">
+    <header>External Databases</header>
+    <menu name="data_configurations">
+        <label>External Databases</label>
+        <url>/manager/%(namespace)s/dbx/databases</url>
+        <description>Create and manage connections to external SQL databases.</description>
+        <order>4711</order>
+        <icon>icon_index.png</icon>
+    </menu>
+    <elements>
+
+        <element name="spl-crtl_script" type="dbxscript">
+            <view name="create" />
+            <view name="edit" />
+            <key name="script">databases.js</key>
+        </element>
+
+
+        <element name="indexPage" type="fieldset">
+            <view name="list" />
+            <view name="edit" />
+            <view name="create" />
+            <elements>
+                <element name="name" type="textfield" label="Name">
+                    <view name="list" />
+                    <view name="create" />
+                    <key name="exampleText">A unique name for the database.</key>
+                </element>
+                <element name="type" type="select" label="Database Type">
+                    <view name="list" />
+                    <view name="create" />
+                    <view name="edit" />
+
+                    <key name="dynamicOptions" type="dict">
+                        <key name="keyName">entry['displayName']</key>
+                        <key name="keyValue">title</key>
+                        <key name="splunkSource">/dbx/dbtypes</key>
+                        <key name="splunkSourceParams" type="dict">
+                            <key name="count">-1</key>
+                        </key>
+                    </key>
+
+                </element>
+
+                <element name="host" type="textfield" label="Host">
+                    <view name="list" />
+                    <view name="create" />
+                    <view name="edit" />
+                    <key name="exampleText">You can enter either the hostname or the IP address. (eg. dbhost.mydomain.local or 10.47.11.5)</key>
+                </element>
+
+                <element name="port" type="textfield" label="Port">
+                    <view name="list" />
+                    <view name="create" />
+                    <view name="edit" />
+                    <key name="exampleText">Leave empty to use the default port for the given database type</key>
+                </element>
+
+                <element name="username" type="textfield" label="Username">
+                    <view name="create" />
+                    <view name="edit" />
+                </element>
+
+                <element name="password" type="password" label="Password">
+                    <view name="create" />
+                    <view name="edit" />
+                </element>
+
+                <element name="database" type="textfield" label="Database">
+                    <view name="list" />
+                    <view name="create" />
+                    <view name="edit" />
+                    <key name="exampleText">The Database or Catalog name you want to use.</key>
+                </element>
+
+                <element name="spl-ctrl_fetch_catalogs" type="button" label="Fetch database names">
+                    <view name="create" />
+                    <view name="edit" />
+                    <key name="exampleText">This allows you select a database name from the list of available databases.</key>
+                </element>
+
+                <element name="readonly" type="checkbox" label="Read only">
+                    <view name="create" />
+                    <view name="edit" />
+                    <key name="exampleText">
+                        Allows execution of non-modifying queries only. This relies on the JDBC driver's implementation of &quot;read-only&quot; mode.
+                    </key>
+                </element>
+
+                <element name="validate" type="checkbox" label="Validate Database Connection">
+                    <view name="create" />
+                    <view name="edit" />
+                    <key name="processValueAdd">0</key>
+                    <key name="exampleText">By enabling this checkbox, the database connection will be tested when you click on the Save button.</key>
+                </element>
+            </elements>
+        </element>
+    </elements>
+</endpoint>

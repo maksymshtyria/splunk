@@ -1,0 +1,24 @@
+<view autoCancelInterval="90" isVisible="true" objectMode="SimpleForm" onunloadCancelJobs="true"
+      template="dashboard.html">
+    <label>Java Bridger Server Status</label>
+    <module name="AccountBar" layoutPanel="appHeader"/>
+    <module name="AppBar" layoutPanel="navigationHeader"/>
+    <module name="Message" layoutPanel="messaging">
+        <param name="filter">*</param>
+        <param name="clearOnJobDispatch">False</param>
+        <param name="maxSize">1</param>
+    </module>
+    <module name="Message" layoutPanel="messaging">
+        <param name="filter">splunk.search.job</param>
+        <param name="clearOnJobDispatch">True</param>
+        <param name="maxSize">1</param>
+    </module>
+    <module name="TitleBar" layoutPanel="viewHeader">
+        <param name="actionsMenuFilter">dashboard</param>
+    </module>
+
+    <module name="ServerSideInclude" layoutPanel="panel_row1_col1" group="Java Bridge Server Status">
+        <param name="src">status.html</param>
+    </module>
+
+</view>

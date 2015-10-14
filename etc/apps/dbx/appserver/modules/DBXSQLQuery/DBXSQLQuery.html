@@ -1,0 +1,20 @@
+<%page args="module"/>
+<div class="database-options">
+    <div class="database-input">
+        <label for="database-input">Database</label>
+        <select name="database" id="database-input" autocomplete="off" tabindex="0">
+            <option value="">Loading...</option>
+        </select>
+    </div>
+    <div class="input-limit">
+        <input type="checkbox" name="limit" checked="checked" id="limit-input" tabindex="1" />
+        <label for="limit-input">limit to 1000 results</label>
+    </div>
+</div>
+<div class="submit-input">
+    <input type="submit" title="Search" class="searchButton" value="" tabindex="3" />
+</div>
+<div class="sql-input">
+    <textarea name="query" tabindex="2"></textarea>
+</div>
+<div class="syntax-switch"><a href="javascript:void(0)">Enable syntax highlighting</a></div>

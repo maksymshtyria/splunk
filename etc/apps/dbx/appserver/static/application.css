@@ -1,0 +1,19 @@
+.splView-home .running { color: #0c0; font-weight: bold; }
+.splView-home .failure { color: #c00; font-weight: bold; }
+.splView-home .loading { color: #ccc; }
+
+.splView-dbquery .timeRangeStr { display: none !important; }
+.splView-dbquery .EntitySelectLister label, .splView-dbquery .TextField label { display: block !important; }
+.splView-dbquery .Checkbox { padding-top: 17px; }
+.splView-dbquery .TextField { display: block !important; width: 90%; clear: left; float: left; }
+.splView-dbquery .TextField input { font-family: monospace; width: 98%; }
+.splView-dbquery .SubmitButton { float: left; }
+.splView-dbquery .SubmitButton input { margin-top: 17px; }
+.splView-dbquery #sql-search { background: #fff; padding: 8px; border: 1px solid #333; }
+
+.splView-dbinfo .timeRangeStr { display: none !important; }
+.splView-dbinfo .TextSetting { float: left; margin-top: -2px; }
+.splView-dbinfo .EntitySelectLister { float: left; }
+.splView-dbinfo .SearchSelectLister { padding-left: 10px; padding-right: 10px; float: left; margin-top: -1px; }
+.splView-dbinfo .SearchSelectLister select { width: 200px; }
+.splView-dbinfo .ResultsHeader { clear: left; }

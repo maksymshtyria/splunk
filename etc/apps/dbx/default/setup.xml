@@ -1,0 +1,30 @@
+<setup>
+    <block title="Setup">
+        <text><![CDATA[
+            Splunk DB Connect is a SQL database extension for Splunk that allows you to connect to, query, and update data in external SQL databases.
+            <script type="text/javascript">
+                $(function(){ $.getScript(Splunk.util.make_url('static','app','dbx','manager','setup.js')); });
+            </script>
+        ]]></text>
+    </block>
+
+    <block title="Java" endpoint="dbx/install">
+        <text>Splunk DB Connect requires at least a Java Runtime Environment (JRE or JDK) version 1.6 or higher.</text>
+
+        <input entity="java" field="home">
+            <type>text</type>
+            <label>Java Home</label>
+        </input>
+        <text>Enter the installation directory of your Java Runtime Environment.</text>
+
+        <input entity="java" field="options">
+            <type>text</type>
+            <label>JVM Commandline options</label>
+        </input>
+        <text>Adjusting the JVM command line options allow you modify certain characteristics of the Java application like heap space size (max. memory consumption).
+        &lt;br/&gt;
+            Example: &lt;span style="font-family:monospace" &gt;-Xmx2G&lt;/span&gt;: Set the max. heap space to 2 GB
+        </text>
+    </block>
+
+</setup>

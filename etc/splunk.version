@@ -1,0 +1,4 @@
+VERSION=6.3.0
+BUILD=aa7d4b1ccb80
+PRODUCT=splunk
+PLATFORM=Windows-AMD64

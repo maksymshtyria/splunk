@@ -1,0 +1,17 @@
+<nav>
+    <view name="home" default="true" />
+    <view name="flashtimeline" />
+    <view name="dbinfo" />
+    <view name="dbquery" />
+    <collection label="Searches">
+        <saved source="unclassified" />
+    </collection>
+    <collection label="Settings">
+        <a href="/manager/dbx/apps/local/dbx/setup?action=edit">Splunk DB Connect configuration</a>
+        <view name="dbxstatus" />
+        <divider />
+        <a href="/manager/dbx/dbx/databases">Manage Database connections</a>
+        <a href="/manager/dbx/dbx/dbmon">Manage Database inputs</a>
+        <a href="/manager/dbx/dbx/dblookups">Manage Database lookups</a>
+    </collection>
+</nav>

@@ -1,0 +1,39 @@
+<view autoCancelInterval="90" isVisible="true" objectMode="SimpleForm" onunloadCancelJobs="true"
+      template="dashboard.html">
+    <label>Database Query</label>
+    <module name="AccountBar" layoutPanel="appHeader" />
+    <module name="AppBar" layoutPanel="navigationHeader" />
+    <module name="Message" layoutPanel="messaging">
+        <param name="filter">*</param>
+        <param name="clearOnJobDispatch">False</param>
+        <param name="maxSize">1</param>
+    </module>
+    <module name="Message" layoutPanel="messaging">
+        <param name="filter">splunk.search.job</param>
+        <param name="clearOnJobDispatch">True</param>
+        <param name="maxSize">1</param>
+    </module>
+    <module name="TitleBar" layoutPanel="viewHeader">
+        <param name="actionsMenuFilter">dashboard</param>
+    </module>
+
+    <module name="DBXSQLQuery" layoutPanel="viewHeader" autoRun="true">
+        <module name="JobStatus">
+            <module name="Paginator" layoutPanel="panel_row1_col1" group="Database Results">
+                <param name="count">20</param>
+                <param name="entityName">results</param>
+                <param name="groupLabel">Database Results</param>
+                <module name="SimpleResultsTable">
+                    <param name="entityName">results</param>
+                    <param name="count">20</param>
+                    <param name="drilldown">none</param>
+                    <param name="allowTransformedFieldSelect">True</param>
+                </module>
+                <module name="ViewRedirectorLink">
+                    <param name="viewTarget">flashtimeline</param>
+                    <param name="label">View results in Search view</param>
+                </module>
+            </module>
+        </module>
+    </module>
+</view>

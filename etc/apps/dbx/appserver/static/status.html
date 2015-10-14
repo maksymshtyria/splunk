@@ -1,0 +1,21 @@
+<a style="float: right;" href="#" class="reload-dbx-status">Reload</a>
+<pre id="dbx_status"></pre>
+<script type="text/javascript">
+    jQuery(function(){
+        function load() {
+            var out = jQuery('#dbx_status').html("Loading...");
+            jQuery.ajax({
+                url: Splunk.util.make_url("/custom/dbx/dbx/status")+'?nocache='+new Date().getTime(),
+                success: function(data){
+                    if(data) {
+                        out.html(data);
+                    } else {
+                        out.html("The Java Bridge server seems not to be running...");
+                    }
+                }
+            });
+        }
+        load();
+        jQuery('.reload-dbx-status').click(load);
+    });
+</script>

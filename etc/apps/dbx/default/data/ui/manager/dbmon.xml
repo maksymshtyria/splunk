@@ -1,0 +1,248 @@
+<endpoint name="dbx/dbmon">
+    <header>Database Inputs</header>
+    <breadcrumb>
+        <parent hidecurrent="False">datainputstats</parent>
+        <name>Database Inputs</name>
+    </breadcrumb>
+    <elements>
+
+        <element name="spl-ctrl_header" type="header">
+            <view name="create"/>
+            <view name="edit"/>
+            <key name="title">Add a new database input</key>
+            <key name="body">
+                A Database input will fetch data from a SQL database.
+            </key>
+        </element>
+
+        <element name="spl-crtl_script" type="dbxscript">
+            <view name="create"/>
+            <view name="edit"/>
+            <key name="script">dbmon.js</key>
+        </element>
+
+
+        <element name="name" type="textfield" label="Name">
+            <view name="create"/>
+            <view name="list"/>
+        </element>
+
+        <element name="type" type="select" label="Input Type">
+            <view name="create"/>
+            <view name="edit"/>
+            <options>
+                <opt value="tail" label="Tail (Follow based on increasing value)"/>
+                <opt value="dump" label="Dump (Always dump the full table/query)"/>
+                <!--<opt value="change" label="Change (Monitor all changes in the table)"/>-->
+                <!--<opt value="batch" label="Batch (Destructive monitor)"/>-->
+            </options>
+            <onChange>
+                <key name="tail"/>
+                <key name="dump">NONE</key>
+                <key name="change">NONE</key>
+                <key name="batch">NONE</key>
+                <key name="_action">showonly</key>
+                <group_set>
+                    <group name="tail_options"/>
+                </group_set>
+            </onChange>
+            <onChange>
+                <key name="change"/>
+                <key name="dump">NONE</key>
+                <key name="tail">NONE</key>
+                <key name="batch">NONE</key>
+                <key name="_action">showonly</key>
+                <group_set>
+                    <group name="change_options"/>
+                </group_set>
+            </onChange>
+        </element>
+
+        <element name="database" type="select" label="Database">
+            <view name="list"/>
+            <view name="edit"/>
+            <view name="create"/>
+            <key name="dynamicOptions" type="dict">
+                <key name="keyName">title</key>
+                <key name="keyValue">title</key>
+                <key name="splunkSource">/dbx/databases</key>
+                <key name="splunkSourceParams" type="dict">
+                    <key name="search">'disabled=false'</key>
+                    <key name="count">-1</key>
+                </key>
+            </key>
+        </element>
+
+        <element name="spl-specify-query" type="checkbox" label="Specify SQL query">
+            <view name="create"/>
+            <view name="edit"/>
+            <key name="processValueEdit">1 if entity.get('query') else 0</key>
+            <key name="processValueAdd">1 if entity.get('query') else 0</key>
+            <onChange>
+              <key name="1">NONE</key>
+              <key name="0">ALL</key>
+              <key name="_action">showonly</key>
+              <group_set>
+                <group name="table"/>
+              </group_set>
+            </onChange>
+            <onChange>
+              <key name="0">NONE</key>
+              <key name="1">ALL</key>
+              <key name="_action">showonly</key>
+              <group_set>
+                <group name="query"/>
+              </group_set>
+            </onChange>
+        </element>
+
+        <element name="table" type="textfield" label="Table Name">
+            <view name="create"/>
+            <view name="edit"/>
+            <view name="list"/>
+            <key name="exampleText">The database table name.</key>
+        </element>
+
+        <element name="query" type="textarea" label="SQL Query">
+            <view name="create"/>
+            <view name="edit"/>
+            <key name="submitValueAdd">value if form_data.get('spl-specify-query')=='1' else None</key>
+            <key name="submitValueEdit">value if form_data.get('spl-specify-query')=='1' else None</key>
+            <key name="requiredIfVisible" />
+            <key name="exampleText"><![CDATA[
+                    You can specify the SQL query that is executed against the database yourself. For information on how
+                    to specify such a query, see Splunk DB Connect documentation. Example: <br />
+                    <code>SELECT * FROM my_table {{WHERE $rising_column$ > ?}}</code>
+            ]]></key>
+        </element>
+
+        <element name="tail_options" type="fieldset" class="spl-mgr-advanced-options">
+            <key name="legend">Tail input settings</key>
+            <view name="create"/>
+            <view name="edit"/>
+            <elements>
+
+                <element name="tail.rising.column" type="textfield" label="Rising Column">
+                    <view name="list"/>
+                    <view name="create"/>
+                    <view name="edit"/>
+                    <key name="requiredIfVisible"/>
+                    <key name="exampleText">
+                        Choose a column with an increasing value. Such as a creation or modification timestamp or a sequential identifier. You can also create a trigger to synthesize such a value.
+                    </key>
+                </element>
+
+            </elements>
+        </element>
+
+        <element name="change_options" type="fieldset" class="spl-mgr-advanced-options">
+            <key name="legend">Change input settings</key>
+            <view name="create"/>
+            <view name="edit"/>
+            <elements>
+
+                <element name="change.hash.algorithm" type="textfield" label="Hash Algorithm">
+                    <view name="list"/>
+                    <view name="create"/>
+                    <view name="edit"/>
+                </element>
+
+            </elements>
+        </element>
+
+        <element name="sourcetype" type="textfield" label="Sourcetype">
+            <view name="edit"/>
+            <view name="create"/>
+            <view name="list"/>
+        </element>
+
+        <element name="index" type="textfield" label="Index">
+            <view name="edit"/>
+            <view name="create"/>
+            <view name="list"/>
+        </element>
+
+        <element name="host" type="textfield" label="Host Field value">
+            <view name="edit"/>
+            <view name="create"/>
+        </element>
+
+        <element name="output_settings" type="fieldset" class="spl-mgr-advanced-options">
+            <key name="legend">Output</key>
+
+            <view name="create"/>
+            <view name="edit"/>
+            <elements>
+
+                <element name="output.format" type="select" label="Output Format">
+                    <view name="create"/>
+                    <view name="edit"/>
+                    <options>
+                        <opt value="kv" label="Key-Value format"/>
+                        <opt value="mkv" label="Multi-line Key-Value format"/>
+                        <opt value="template" label="Template"/>
+                        <opt value="csv" label="CSV"/>
+                        <opt value="csvh" label="CSV (with headers)"/>
+                    </options>
+                    <onChange>
+                        <key name="template"/>
+                        <key name="kv">NONE</key>
+                        <key name="mkv">NONE</key>
+                        <key name="csv">NONE</key>
+                        <key name="csvh">NONE</key>
+                        <key name="_action">showonly</key>
+                        <group_set>
+                            <group name="output.template"/>
+                        </group_set>
+                    </onChange>
+                    <key name="exampleText">
+                        Specify how the event text content is generated.
+                    </key>
+                </element>
+
+                <element name="output.template" type="textarea" label="Template">
+                    <view name="list"/>
+                    <view name="create"/>
+                    <view name="edit"/>
+                    <key name="requiredIfVisible"/>
+                </element>
+
+                <element name="output.timestamp" type="checkbox" label="Output timestamp">
+                    <view name="edit"/>
+                    <view name="create"/>
+                    <!--<key name="exampleText"></key>-->
+                </element>
+
+                <element name="output.timestamp.column" type="textfield" label="Timestamp column">
+                    <view name="edit"/>
+                    <view name="create"/>
+                    <key name="exampleText">Select a column from the given table/query which should be used for
+                        the timestamp value.
+                    </key>
+                </element>
+
+                <element name="output.timestamp.format" type="textfield" label="Timestamp format">
+                    <view name="edit"/>
+                    <view name="create"/>
+                    <key name="exampleText"><![CDATA[The timestamp format expressed as a Java
+                        <a href="http://download.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html" target="_blank">SimpleDateFormat</a> pattern.
+                        The default format is configured in the Splunk DB Connect app setup.
+                    ]]></key>
+                </element>
+
+            </elements>
+        </element>
+
+
+        <element name="interval" type="textfield" label="Interval">
+            <view name="list"/>
+            <view name="edit"/>
+            <view name="create"/>
+            <key name="exampleText">The interval can either be a valid cron expression or a relative time
+                expression to wait between each run. Leave empty to let dbmon choose an appropriate interval
+                automatically depending on the amount of data fetched.
+            </key>
+        </element>
+
+    </elements>
+</endpoint>

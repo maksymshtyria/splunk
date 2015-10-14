@@ -1,0 +1,26 @@
+This software contains unmodified binary redistributions for H2 database engine (http://www.h2database.com/),
+which is dual licensed and available under a modified version of the MPL 1.1 (Mozilla Public License)
+or under the (unmodified) EPL 1.0 (Eclipse Public License).
+An original copy of the license agreement can be found at: http://www.h2database.com/html/license.html
+
+
+This software contains unmodified binary redistributions of the SQLite JDBC driver provided by Xerial (xerial.org)
+which is licensed under the terms of Apache License Version 2.0 (see Apache-License-2.0.txt).
+
+
+This software contains unmodified binary redistributions of the jTDS JDBC driver which is licensed under the terms of
+the GNU Lesser General Public License (LGPL). See http://www.gnu.org/copyleft/lesser.html
+
+
+This software contains unmodified binary redistributions of JDBM provided by http://jdbm.sourceforge.net
+which is licensed under the terms of Apache License Version 2.0 (see Apache-License-2.0.txt).
+
+
+This software contains modified code of opencsv provided by http://opencsv.sourceforge.net
+which is licensed under the terms of Apache License Version 2.0 (see Apache-License-2.0.txt).
+
+Additionally see:
+antlr-2.7.7.license.txt
+postgresql-9.0-801.license.txt
+stringtemplate-3.2.1.license.txt
+xstream-1.4.1.license.txt
